@@ -191,7 +191,11 @@ class MainPage(tkinter.Frame):
                 self.total_energy[i] = self.energy[i] + self.total_energy[i - 1]
 
     def enter_xx(self, a):
-        input_xx = float(self.xx_param_entry.get())
+        try:
+            input_xx = float(self.xx_param_entry.get())
+        except ValueError:
+            messagebox.showwarning("Warning!", "Value of parameter XX must be a number between 0 and 1.")
+            return
         if 1 >= input_xx >= 0:
             self.xx = input_xx
             self.energy_calculations()
@@ -201,7 +205,7 @@ class MainPage(tkinter.Frame):
             self.update_plot2()
 
         else:
-            messagebox.showwarning("Warning!", "Value of parameter XX must be between 0 and 1.")
+            messagebox.showwarning("Warning!", "Value of parameter XX must be a number between 0 and 1.")
 
     def show_max_values(self):
         self.max_recovered_label = tkinter.Label(self.root, textvariable=self.max_recovered)
